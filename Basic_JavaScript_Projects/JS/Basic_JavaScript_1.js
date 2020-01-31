@@ -1,3 +1,4 @@
 window.alert("This is JavaScript");
 
-document.write("Hello, World!");
+var X = "Hello, World!"
+document.write(X);
