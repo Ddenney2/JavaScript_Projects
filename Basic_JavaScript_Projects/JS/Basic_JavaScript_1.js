@@ -21,3 +21,11 @@ document.write(B)
 var Family = "The Arezzinis", Dad = "Jeremiah", Mom = "Hermoine", Daughter = "Penny", Son = "Zorro";
 var Son = Son.fontcolor("purple");
 document.write(Son);
+
+document.write(4 + 4);
+
+function myFirstFunction() {
+    var str = "This text is green!";
+    var result = str.fontcolor("green");
+    document.getElementById("Green_Text").innerHTML = result;
+}
