@@ -1,1 +1,1 @@
-alert("This is JavaScript");
+window.alert("This is JavaScript");
