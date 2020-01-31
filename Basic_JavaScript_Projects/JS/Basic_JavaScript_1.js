@@ -1,9 +1,11 @@
 window.alert("This is JavaScript");
 
-var X = "Hello, World!"
+var X = "Hello, World!";
+var X = X.fontcolor("blue");
 document.write(X);
 
 var A = "This is a string";
+var A = A.fontcolor("pink");
 document.write(A);
 
 document.write("Lisa told Bart, \"Knock it off!\"");
@@ -13,4 +15,9 @@ document.write("\"Be who you are and say what you feel,"
 + "-Dr. Seuss");
 
 var B = "Concatenated" + "String"
+var B = B.fontcolor("orange");
 document.write(B)
+
+var Family = "The Arezzinis", Dad = "Jeremiah", Mom = "Hermoine", Daughter = "Penny", Son = "Zorro";
+var Son = Son.fontcolor("purple");
+document.write(Son);
