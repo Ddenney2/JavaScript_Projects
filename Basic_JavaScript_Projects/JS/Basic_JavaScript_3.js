@@ -22,3 +22,8 @@ function more_Math() {
     var simple_Math = (8 + 8) * 6 / 2 - 12;
     document.getElementById("Many").innerHTML = "8 plus 8, multiplied by 6, divided in half and then subtracted by 12 equals " + simple_Math;
 }
+
+function modulus_Operator() {
+    var simple_Math = 25 % 6;
+    document.getElementById("Mod").innerHTML = "When you divide 25 by 6 you have a remainder of: " + simple_Math;
+}
