@@ -2,7 +2,7 @@ var X = 10;
 function Add_numbers_1() {
     document.write(20 + X + "<br>");
 }
-funtion Add_numbers_2() {
+function Add_numbers_2() {
     document.write(X + 100);
 }
 Add_numbers_1();
@@ -28,7 +28,7 @@ function Add_numbers_6() {
 Add_numbers_5();
 Add_numbers_6();
 
-funtion get_Date() {
+function get_Date() {
     if (new Date().getHours() < 18) {
         document.getElementById("Greeting").innerHTML = "How are you today?";
     }
@@ -41,7 +41,7 @@ funtion get_Date() {
 
 
 function Age_Function() {
-    if (input < 50) {
+    if (Age < 50) {
         document.getElementById("Ouch").innerHTML = "You may be headed over the hill.";
     }
     else {
