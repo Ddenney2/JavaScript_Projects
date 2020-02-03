@@ -6,16 +6,41 @@ function full_Sentence() {
     var whole_sentence = part_1.concat(part_2, part_3, part_4);
     document.getElementById("Concatenate").innerHTML = whole_sentence;
 }
+
 function slice_Method() {
     var Sentence = "All work and no play makes Johnny a successful boy.";
     var Section = Sentence.slice(27,33);
     document.getElementById("Slice").innerHTML = Section;
 }
+
 function mySearch() {
     var str = "I've got a lovely bunch of coconuts."
     var A = str.search("lovely");
     document.getElementById("bunch").innerHTML = A;
   }
+
+function string_Method() {
+    var B = 46;
+    document.getElementById("Numbers").innerHTML = B.toString();
+}
+
+function precision_Method() {
+    var G = 1536.65235529872563;
+    document.getElementById("Precision").innerHTML = G.toPrecision(10);
+}
+
+function myFunction() {
+    var num = 9.4525752;
+    var n = num.toFixed(3);
+    document.getElementById("Fix").innerHTML = n;
+}
+
+function value_Function() {
+    var str = "So far so good";
+    var res = str.valueOf();
+    document.getElementById("Value").innerHTML = res;
+}
+
 
 /* This is where the code stops working. Getting this method to work is 
 getting confusing. I've tried many variations, but it is saying the class is not defined.
