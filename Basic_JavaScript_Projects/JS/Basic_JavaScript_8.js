@@ -41,15 +41,8 @@ function value_Function() {
     document.getElementById("Value").innerHTML = res;
 }
 
-
-/* This is where the code stops working. Getting this method to work is 
-getting confusing. I've tried many variations, but it is saying the class is not defined.
-Also corrupts the existing, working, functions above. */
-
-public class MyClass {
-    public static void main(String[] args) {
-        String txt = "Cookie eating monkeys.";
-        System.out.println(txt.toUpperCase());
-    
-    }
+function upper_Function() {
+    var str = "Now I got it working.";
+    var res = str.toUpperCase();
+    document.getElementById("Up").innerHTML = res;
   }
