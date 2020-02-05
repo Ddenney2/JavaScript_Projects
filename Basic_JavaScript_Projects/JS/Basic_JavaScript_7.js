@@ -32,20 +32,30 @@ function get_Date() {
     if (new Date().getHours() < 18) {
         document.getElementById("Greeting").innerHTML = "How are you today?";
     }
-    else {
-        Vote = "You are old enough vote!";
-    }
-    document.getElementById("How_old_are_you?").innerHTML = Vote;
 }
 
-
-
 function Age_Function() {
-    if (Age < 50) {
-        document.getElementById("Ouch").innerHTML = "You may be headed over the hill.";
+    Age = document.getElementById("Age").value;
+    if (Age >= 50) {
+        Old = "You may be headed over the hill.";
     }
     else {
-        Age = "You still have a ways to go.";
+        Old = "You still have a ways to go.";
     }
-    document.getElementById("Yay").innerHTML = Age;
+    document.getElementById("How_old_are_you?").innerHTML = Old;
+}
+
+function Time_Function() {
+    var Time = new Date ().getHours();
+    var Reply;
+    if (Time < 12 == Time > 0) {
+        Reply = "It is morming time!";
+    }
+    else if (Time > 12 == Time < 18) {
+        Reply = "It is the afternoon.";
+    }
+    else {
+        Reply = "It is evening time.";
+    }
+    document.getElementById("Time_of_day").innerHTML = Reply;
 }
