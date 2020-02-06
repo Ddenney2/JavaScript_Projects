@@ -81,3 +81,36 @@ table tr:nth-child(3) td:nth-child(1) {
     width: 200px;
     text-align: center;
 }
+
+.O {
+    transition: transform .3s;
+    opacity: 1;
+    position: absolute;
+    background-image: url("../images/avatarO.gif");
+    width: 200px; 
+    height: 200px;
+    transform: translateY(-100%);
+}
+
+.X {
+    transition: transform .3s;
+    opacity: 1;
+    background-image: url("../images/avatarX.gif");
+    width: 200px;
+    height: 200px;
+    transform: translateY(100%);
+}
+
+.console_Left {
+    width: 160px;
+    height: 600px;
+    margin: 0px 0px 0px 10px;
+    float: left;
+}
+
+.console_Right {
+    width: 140px;
+    height: 600px;
+    margin: 0px auto;
+    float: left;
+}
