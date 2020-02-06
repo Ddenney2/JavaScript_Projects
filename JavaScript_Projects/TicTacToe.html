@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Tic Tac Toe</title>
+        <script src="js/tictactoe.js"></script>
+        <link rel="stylesheet" href="css/game.css">
+    </head>
+    <body id="body">
+
+<!--AUDIO FILES-->
+        <audio id="placeAvatar">
+            <source src="./audio/placeAvatar.mp3" type="audio/mpeg">
+                Your browser does not support this audio element.
+        </audio>
+        <audio id="winGame">
+            <source src="./audio/winGame.mp3" type="audio/mpeg">
+                Your browser does not support this audio element.
+        </audio>
+        <audio id="tieGame">
+            <source src="./audio/tieGame.mp3" type="audio/mpeg">
+                Your browser does not support this audio element.
+        </audio>
+        <audio id="diceRoll">
+            <source src="./audio/diceRoll.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+        </audio>
+<!--END OF AUDIO FILES-->
+
+        <div id="shell">
+            <div id="gameMsgBox" onclick="hideGameMsg()"><p id="gameMsg"></p></div>
+
+            <div class="console_Left">
+                <div class="displayBox boxLeft">
+                    <strong>Current Config:</strong><br><br>
+                    <label>Player 1: &nbsp&nbsp<span id="p1Display">O</span></label><br><br>
+                </div>
+            </div>
+        </div>
+
+
+
+        
+    </body>
+</html>
