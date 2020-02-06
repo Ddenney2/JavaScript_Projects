@@ -1,258 +1,98 @@
-body {
-    background-color: #fff;
+//This function will get fired once the DOM is loaded.
+//Disable the stop button since it is not needed until game start.
+window.onload = function() {watch()};
+function watch() {
+    var btn = document.getElementById('btnStop');
+    btnDisabled(btn); //disable the stop button since the game has not started.
 }
 
-#shell {
-    width: 950px;
-    margin: 0 auto;
+//this function will roll a random number twice, one for
+// each player and determine which player won the roll.
+function rollForTurn() {
+    var xArray = [];
+    var ranNum = '';
+    var minimum = 1;
+    var maximum = 11;
+    var first = "";
+    var txt1 = "";
+    for (var i = 0; i < 2; i++) {
+        //random whole number between 1 and 10
+        ranNum = Math.floor(Math.random()*(maximum - minimum) + minimum);
+        xArray.push(ranNum);
+    }
+    diceRoll();//play dice sounds during the game roll for turn
+    //build the string to show which player rolled what die roll
+    for (i=0;i<xArray.length;i++) {
+        var result = i + 1;
+        var pOne = xArray[0];
+        var pTwo = xArray[1];
+        if (pOne == pTwo) {//rigging roll on tie to avoid bug in code. Need to address this later.
+            pOne = 1;
+            pTwo = 2;
+        }
+        txt1 = "Player 1 rolled ["+pOne+"]<br>";
+        writeMsg(txt1);
+        txt1 = txt1 + "Player 2 rolled ["+pTwo+"]<br><br>";
+        setTimeout(function() {writeMsg(txt1);}, 1000); //time delay for dramatic affect
+    }
+    //determine and cancatenate string showing which player won the roll
+    if (pOne > pTwo) {
+        first = "Player 1";
+        setTimeout(function() { txt1 = txt1 + "Player 1 wins, please choose a square.";}, 2000);
+        setTimeout(function() {writeMsg(txt1);}, 2000);
+    } else if (pOne < pTwo) {
+        first = "Player 2";
+        setTimeout(function() { txt1 = txt1 + "Player 2 wins, please choose a square.";}, 2000);
+        setTimeout(function() {writeMsg(txt1);}, 2000);
+    }
+    //pass which player won the roll
+    return first;
 }
 
-#gameMsgBox {
-    cursor: pointer;
-    display: none;
-    width: 500px;
-    height: 340px;
-    position: absolute;
-    text-align: center;
-    margin: 140px 0 0 230px;
-    z-index: 100;
-    background-color: rgba(232, 236, 242, .95);
-    border: 2px solid #000;
-    border-radius: 10px;
-    box-shadow: 5px 5px 25px -4px rgba(0,0,0,0.55);
+//----------------------------------------------------------------------------------------------------------
+// initiate the game, roll for turn & determine the active player
+//-----------------------------------------------------------------------------------------------------------
+function startGame(){
+    var xTurn = 0;
+    activePlayer = rollForTurn();
+    if (activePlayer == "") { //if it was a tie, then reroll
+        activePlayer = rollForTurn();
+    }
+    setTimeout(function() {hideGameMsg();}, 4000);
+
+    //asign proper state of the control buttons
+    var btn = document.getElementById('btnStart');
+    btnDisabled(btn); //disable the start button since the game started
+    var btn = document.getElementById('btnStop');
+    stopEnabled(btn); //enable the stop button since the game started
+
+    //Assign the Active Player to the console
+    var showPlayer = document.getElementById('showPlayer')
+    showPlayer.innerHTML = activePlayer;
+    showPlayer.style.color = "green";
 }
 
-#gameMsgBox #gameMsg {
-    cursor: pointer;
-    margin: 4% auto;
-    text-align: center;
-    color: darkblue;
-    font-weight: bold;
-    font-family: ;
-    font-size: 45px;
+
+//this function styles the game buttons while they are disabled
+function btnDisabled(btn) {
+    btn.style.color = "fff";
+    btn.style.border = "2px solid rgb(153, 153, 102)";
+    btn.style.backgroundColor = "rgb(214, 214, 194)";
+    btn.disabled = true;
 }
 
-table {
-    width: 620px;
-    margin: 0 auto;
-    box-shadow: 5px 4px 15px -2px rgba(0,0,0,0.45);
-    border-radius: 10px;
-    float: left;
-    background-color: #e5e6e8;
+//this function styles the game buttons while they are disabled
+function stopEnabled(btn) {
+    btn.style.color = "#fff";
+    btn.style.border = "2px solid rgb(204, 0, 0)";
+    btn.style.backgroundColor = "rgb(255, 51, 51)";
+    btn.disabled = false;
 }
 
-td {
-    height: 200px;
-    width: 200px;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    border-width: 4px;
-    border-style: groove;
-    border-color: #e5e6e8;
-}
-
-table tr:nth-child(-n+3) td:nth-child(-n+3) {
-    background-color: #d7f3f7;
-}
-
-table tr:nth-child(-n+3) td:nth-child(-n+3):hover {
-    background-color: #e5fbff;
-}
-
-table tr:nth-child(1) td:nth-child(1) {
-    border-radius: 10px 0px 0px 0px;
-}
-
-table tr:nth-child(1) td:nth-child(3) {
-    border-radius: 0px 10px 0px 0px;
-}
-
-table tr:nth-child(3) td:nth-child(3) {
-    border-radius: 0px 0px 10px 0px;
-}
-
-table tr:nth-child(3) td:nth-child(1) {
-    border-radius: 0px 0px 0px 10px;
-}
-
-.photo-container {
-    height: 200px;
-    width: 200px;
-    text-align: center;
-}
-
-.O {
-    transition: transform .3s;
-    opacity: 1;
-    position: absolute;
-    background-image: url("../images/avatarO.gif");
-    width: 200px; 
-    height: 200px;
-    transform: translateY(-100%);
-}
-
-.X {
-    transition: transform .3s;
-    opacity: 1;
-    background-image: url("../images/avatarX.gif");
-    width: 200px;
-    height: 200px;
-    transform: translateY(100%);
-}
-
-.console_Left {
-    width: 160px;
-    height: 600px;
-    margin: 0px 0px 0px 10px;
-    float: left;
-}
-
-.console_Right {
-    width: 140px;
-    height: 600px;
-    margin: 0px auto;
-    float: left;
-}
-
-.displayBox {
-    background-color: rgba(53, 35, 142, .95);
-    color: white;
-    font-weight: bold;
-    border: 3px solid black;
-    padding: 2%;
-    box-shadow: 5px 5px 25px -4px rgba(0,0,0,0.65);
-    border-radius: 10px;
-}
-
-.displayBox:hover {
-    background-color: rgba(53, 35, 142, .88);
-}
-
-.boxLeft {
-    float: left;
-    margin: 0px 0px 0px 20px;
-    width: 120px;
-    height: 120px;
-}
-
-.boxRight {
-    float: right;
-    margin: 0px 10px 0px 0px;
-    width: 110px;
-    height: 120px;
-}
-
-.boxRight>button {
-    cursor: pointer;
-    margin: 10px 0px 10px 10px;
-    width: 90px;
-    height: 25px;
-    background-color: rgba(214, 212, 212, .95);
-    border: 1px solid rgba(0,0,0,0.65);
-    border-radius: 10px;
-}
-
-.boxRight>button:hover {
-    background-color: rgba(237, 234, 234, .95);
-    border: 1px solid rgba(0,0,0,0.85);
-    box-shadow: 3px 3px 15px -4px rgba(0,0,0,0.65);
-    border-radius: 10px;
-}
-
-#controls {
-    width: 200px;
-    float: cneter;
-    margin: 0 auto;
-}
-
-#showHeader {
-    font-variant: small-caps;
-    color: white;
-    width: 120px;
-    height: 40px;
-    font-weight: bold;
-    text-align: center;
-    padding: 2px 0px 2px 0px;
-    margin: 0px 0px 0px 0px;
-    background-color: #212270;
-    border: 2px solid black;
-    border-radius: 10px 10px 0px 0px;
-}
-
-#showPlayer {
-    font-variant: small-caps;
-    color: red;
-    font-weight: bold;
-    width: 120px;
-    height: 20px;
-    text-align: center;
-    margin: 0px 0px 0px 0px;
-    padding: 5px 0px 5px 0px;
-    border: 2px solid black;
-    border-radius: 0px 0px 10px 10px;
-}
-
-#messageFrame {
-    width: 124px;
-    height: 82px;
-    text-align: center;
-    margin: 358px 0px 0px 20px;
-    box-shadow: 5px 5px 25px -4px rgba (0,0,0,0.65);
-    border-radius: 10px;
-}
-
-#boardState {
-    display: none;
-    font-size: 10px;
-    margin: 10px auto;
-    float: left;
-}
-
-#btnStart {
-    cursor: pointer;
-    font-family: Tahoma;
-    font-size: 1em;
-    font-weight: bold;
-    color: #fff;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-    border: 2px solid rgb(0, 153, 0);
-    background-color: rgb(57, 230, 0);
-    margin: 20px 0px 0px 25px;
-    padding: 12px 14px 12px 14px;
-    box-shadow: inset 3px 3px 15px -2px rgba(255,255,255,0.95), 3px 3px 15px -4px rgba(0,0,0, .95);
-    border-radius: 10px;
-}
-
-#btnStart:hover {
-    border: 2px solid rgb(19, 77, 0);
-    background-color: rgb(0, 204, 0);
-    box-shadow: inset 3px 3px 15px -2px rgba(0,0,0,0.65);
-    transition-property: background box-shadow;
-    transition: 0.2s;
-    transition-timing-function: ease-in-out;
-}
-
-#btnStop {
-    cursor: pointer;
-    font-family: Tahoma;
-    font-size: 1em;
-    font-weight: bold;
-    color: #fff;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-    border: 2px solid rgb(204, 0, 0);
-    background-color: rgb(255, 51, 51);
-    margin: 20px 0px 0px 10px;
-    padding: 12px 14px 12px 14px;
-    box-shadow: inset 3px 3px 15px -2px rgba(255,255,255,0.95), 3px 3px 15px -4px rgba(0,0,0,0.65);
-    border-radius: 10px;
-}
-
-#btnStop:hover {
-    border: 2px solid rgb(19, 77, 0);
-    background-color: rgb(255, 0, 0);
-    box-shadow: inset 3px 3px 15px -2px rgba(0,0,0,0.65);
-    transition-property: background box-shadow;
-    transition: 0.2s;
-    transition-timing-function: ease-in-out;
+//this function styles the game buttons while they are disabled
+function startEnabled(btn) {
+    btn.style.color = "#fff";
+    btn.style.border = "2px solid rgb(0, 153, 0)";
+    btn.style.backgroundColor = "rgb(57, 230, 0)";
+    btn.disabled = false;
 }
