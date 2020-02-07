@@ -349,6 +349,12 @@ function tieSound() {
     setTimeout(function() {sound.pause();}, 2700);
     setTimeout(function() {sound.currentTime = 0;}, 2800);
 }
+function winSound() { 
+	var sound = document.getElementById("winGame");
+	setTimeout(function() {sound.play();}, 500);
+	setTimeout(function() {sound.pause();}, 2700); // add delay to these to keep sound short
+	setTimeout(function() {sound.currentTime = 0;}, 2800);
+}
 function diceRoll() {
     var sound = document.getElementById("diceRoll");
     sound.play();
@@ -369,6 +375,201 @@ function blink() {
     setTimeout(function() {body.style.backgroundColor = '#c6034e';}, 900);
     setTimeout(function() {body.style.backgroundColor = '#e00202';}, 1000);
     setTimeout(function() {body.style.backgroundColor = '#ffffff';}, 1100);
+}
+
+// -------------------------------------------------------------
+// These function are the algorithms to find all win conditions
+// -------------------------------------------------------------
+// checking for wincon squares 012
+function checkWinCon1(info,squareArray) {
+	var winDetected = "on";
+	var winCon1 = [0,1,2];
+	// iterate through the growing array during 
+	// gametime searching for the existence of 
+	// index 0, index 1 and index 2 and once they
+	// they do appear in the array, record their 
+	// avatars and compare all 3 for win cons
+	for (var i in info) {
+		if (info[i].charAt(0) == "0") {
+			var match0Avatar = info[i].charAt(1); // only interested in recording the avatar
+		}
+		if (info[i].charAt(0) == "1") {
+			var match1Avatar = info[i].charAt(1);
+		}
+		if (info[i].charAt(0) == "2") {
+			var match2Avatar = info[i].charAt(1);
+		}
+	}
+	// this will trigger (ONLY) if there was a match for index0, index1, and index2
+	if (match0Avatar != undefined && match1Avatar != undefined && match2Avatar != undefined) {
+		if (match0Avatar == match1Avatar && match0Avatar == match2Avatar) {
+			winDetected = "win"; // this flag will pass when a win has been detected
+			winner(winDetected,winCon1);
+			return;
+		}
+	}
+	winner(winDetected,winCon1); // winCon1 is the array of win combo
+}
+
+// checking for wincon squares 345
+function checkWinCon2(info,squareArray) {
+	var winCon2 = [3,4,5];
+	var winDetected = "on";
+	for (var i in info) {
+		if (info[i].charAt(0) == "3") {
+			var match3Avatar = info[i].charAt(1); // only interested in recording the avatar
+		}
+		if (info[i].charAt(0) == "4") {
+			var match4Avatar = info[i].charAt(1);
+		}
+		if (info[i].charAt(0) == "5") {
+			var match5Avatar = info[i].charAt(1);
+		}
+	}
+	if (match3Avatar != undefined && match4Avatar != undefined && match5Avatar != undefined) { // this will trigger (ONLY) if there was a match for index3, index4, and index5
+		if (match3Avatar == match4Avatar && match3Avatar == match5Avatar) {
+			winDetected = "win";
+		}
+	}
+	winner(winDetected,winCon2);
+}
+
+// checking for wincon squares 678
+function checkWinCon3(info,squareArray) {
+	var winCon3 = [6,7,8];
+	var winDetected = "on";
+	for (var i in info) {
+		if (info[i].charAt(0) == "6") {
+			var match6Avatar = info[i].charAt(1); // only interested in recording the avatar
+		}
+		if (info[i].charAt(0) == "7") {
+			var match7Avatar = info[i].charAt(1);
+		}
+		if (info[i].charAt(0) == "8") {
+			var match8Avatar = info[i].charAt(1);
+		}
+	}
+	if (match6Avatar != undefined && match7Avatar != undefined && match8Avatar != undefined) {
+		if (match6Avatar == match7Avatar && match6Avatar == match8Avatar) {
+			winDetected = "win";
+		}
+	}
+	winner(winDetected,winCon3);
+}
+
+// checking for wincon squares 036
+function checkWinCon4(info,squareArray) {
+	var winCon4 = [0,3,6];
+	var winDetected = "on";
+	for (var i in info) {
+		if (info[i].charAt(0) == "0") {
+			var match0Avatar = info[i].charAt(1); // only interested in recording the avatar
+		}
+		if (info[i].charAt(0) == "3") {
+			var match3Avatar = info[i].charAt(1);
+		}
+		if (info[i].charAt(0) == "6") {
+			var match6Avatar = info[i].charAt(1);
+		}
+	}
+	if (match0Avatar != undefined && match3Avatar != undefined && match6Avatar != undefined) {
+		if (match0Avatar == match3Avatar && match0Avatar == match6Avatar) {
+			winDetected = "win";
+		}
+	}
+	winner(winDetected,winCon4);
+}
+
+// checking for wincon squares 147
+function checkWinCon5(info,squareArray) {
+	var winCon5 = [1,4,7];
+	var winDetected = "on";
+	for (var i in info) {
+		if (info[i].charAt(0) == "1") {
+			var match1Avatar = info[i].charAt(1); // only interested in recording the avatar
+		}
+		if (info[i].charAt(0) == "4") {
+			var match4Avatar = info[i].charAt(1);
+		}
+		if (info[i].charAt(0) == "7") {
+			var match7Avatar = info[i].charAt(1);
+		}
+	}
+	if (match1Avatar != undefined && match4Avatar != undefined && match7Avatar != undefined) {
+		if (match1Avatar == match4Avatar && match1Avatar == match7Avatar) {
+			winDetected = "win";
+		}
+	}
+	winner(winDetected,winCon5);
+}
+
+// checking for wincon squares 258
+function checkWinCon6(info,squareArray) {
+	var winCon6 = [2,5,8];
+	var winDetected = "on";
+	for (var i in info) {
+		if (info[i].charAt(0) == "2") {
+			var match2Avatar = info[i].charAt(1); // only interested in recording the avatar
+		}
+		if (info[i].charAt(0) == "5") {
+			var match5Avatar = info[i].charAt(1);
+		}
+		if (info[i].charAt(0) == "8") {
+			var match8Avatar = info[i].charAt(1);
+		}
+	}
+	if (match2Avatar != undefined && match5Avatar != undefined && match8Avatar != undefined) {
+		if (match2Avatar == match5Avatar && match2Avatar == match8Avatar) {
+			winDetected = "win";
+		}
+	}
+	winner(winDetected,winCon6);
+}
+
+// checking for wincon squares 642
+function checkWinCon7(info,squareArray) {
+	var winCon7 = [6,4,2];
+	var winDetected = "on";
+	for (var i in info) {
+		if (info[i].charAt(0) == "6") {
+			var match6Avatar = info[i].charAt(1); // only interested in recording the avatar
+		}
+		if (info[i].charAt(0) == "4") {
+			var match4Avatar = info[i].charAt(1);
+		}
+		if (info[i].charAt(0) == "2") {
+			var match2Avatar = info[i].charAt(1);
+		}
+	}
+	if (match6Avatar != undefined && match4Avatar != undefined && match2Avatar != undefined) {
+		if (match6Avatar == match4Avatar && match6Avatar == match2Avatar) {
+			winDetected = "win";
+		}
+	}
+	winner(winDetected,winCon7);
+}
+
+// checking for wincon squares 048
+function checkWinCon8(info,squareArray) {
+	var winCon8 = [0,4,8];
+	var winDetected = "on";
+	for (var i in info) {
+		if (info[i].charAt(0) == "0") {
+			var match0Avatar = info[i].charAt(1); // only interested in recording the avatar
+		}
+		if (info[i].charAt(0) == "4") {
+			var match4Avatar = info[i].charAt(1);
+		}
+		if (info[i].charAt(0) == "8") {
+			var match8Avatar = info[i].charAt(1);
+		}
+	}
+	if (match0Avatar != undefined && match4Avatar != undefined && match8Avatar != undefined) {
+		if (match0Avatar == match4Avatar && match0Avatar == match8Avatar) {
+			winDetected = "win";
+		}
+	}
+	winner(winDetected,winCon8);
 }
 
 
@@ -589,4 +790,14 @@ function square9Animate() {
             squareSound(); //play a game sound when the avatar is placed
         }
     }
+}
+
+// this function will perform the animation for the O avatar.
+function animateO(selected) {
+	selected.style.transform = (selected.style.transform == "translateY(0%)" || null) ? "translateY(0%)" : "translateY(0%)";
+}
+
+// this function will perform the animation for the X avatar.
+function animateX(selected) {
+	selected.style.transform = (selected.style.transform == "translateY(-100%)" || null) ? "translateY(0%)" : "translateY(-100%)";
 }
