@@ -186,7 +186,7 @@ function avatarPlaced() {
     var parseText = document.getElementById('gameMsg').innerHTML;
     var showPlayer = document.getElementById('showPlayer'); //select the current element to memory
     //check if there is already a winner. if there is, then don't continue the game
-    if (parseText == "That's three in a row, Player 1 wins!" | | parseText == "That's three in a row, Player 2 wins!") {
+    if (parseText == "That's three in a row, Player 1 wins!" || parseText == "That's three in a row, Player 2 wins!") {
         showPlayer.innerHTML = "Game Stopped";
         showPlayer.style.color='red';
     }
@@ -280,5 +280,313 @@ function winner(winDetected,winCon) {
         btnDisabled(btn); //disbale the stop button
         document.getElementById('showPlayer').innerHTML = "Game Stopped";
         glowBoard(winCon); //call function to make the game board pulse with colors
+    }
+}
+
+//this function will make the winning squares light up
+function glowBoard(pos) {
+    var index0 = pos[0];
+    var index1 = pos[1];
+    var index2 = pos[2];
+    var squares = document.getElementsByClassName('square')
+    for (var i=0;i<squares.length;i++) {
+        if (i == index0) {
+            var bg1 = squares[i];
+            blink();
+            winSound();
+            setTimeout(function() {bg1.style.backgroundColor = 'rgb(244, 179, 66)';}, 100);
+            setTimeout(function() {bg1.style.backgroundColor = 'rgb(244, 238, 66)';}, 200);
+            setTimeout(function() {bg1.style.backgroundColor = 'rgb(197, 244, 66)';}, 300);
+            setTimeout(function() {bg1.style.backgroundColor = 'rgb(122, 244, 66)';}, 400);
+            setTimeout(function() {bg1.style.backgroundColor = 'rgb(66, 244, 235)';}, 500);
+            setTimeout(function() {bg1.style.backgroundColor = 'rgb(244, 179, 66)';}, 600);
+            setTimeout(function() {bg1.style.backgroundColor = 'rgb(244, 238, 66)';}, 700);
+            setTimeout(function() {bg1.style.backgroundColor = 'rgb(197, 244, 66)';}, 800);
+            setTimeout(function() {bg1.style.backgroundColor = 'rgb(122, 244, 66)';}, 900);
+            setTimeout(function() {bg1.style.backgroundColor = 'rgb(66, 244, 235)';}, 1000);
+            setTimeout(function() {bg1.style.backgroundColor = '#d7f3f7';}, 1100); 
+        } else if (i == index1) {
+            var bg2 = squares[i];
+            setTimeout(function() {bg2.style.backgroundColor = 'rgb(66, 244, 235)';}, 100);
+            setTimeout(function() {bg2.style.backgroundColor = 'rgb(122, 244, 66)';}, 200);
+            setTimeout(function() {bg2.style.backgroundColor = 'rgb(197, 244, 66)';}, 300);
+            setTimeout(function() {bg2.style.backgroundColor = 'rgb(244, 238, 66)';}, 400);
+            setTimeout(function() {bg2.style.backgroundColor = 'rgb(244, 179, 66)';}, 500);
+            setTimeout(function() {bg2.style.backgroundColor = 'rgb(66, 244, 235)';}, 600);
+            setTimeout(function() {bg2.style.backgroundColor = 'rgb(122, 244, 66)';}, 700);
+            setTimeout(function() {bg2.style.backgroundColor = 'rgb(197, 244, 66)';}, 800);
+            setTimeout(function() {bg2.style.backgroundColor = 'rgb(244, 238, 66)';}, 900);
+            setTimeout(function() {bg2.style.backgroundColor = 'rgb(244, 179, 66)';}, 1000);
+            setTimeout(function() {bg2.style.backgroundColor = '#d7f3f7';}, 1100);
+        } else if (i == index2) {
+            var bg3 = squares[i];
+            setTimeout(function() {bg3.style.backgroundColor = 'rgb(244, 179, 66)';}, 100);
+            setTimeout(function() {bg3.style.backgroundColor = 'rgb(244, 238, 66)';}, 200);
+            setTimeout(function() {bg3.style.backgroundColor = 'rgb(197, 244, 66)';}, 300);
+            setTimeout(function() {bg3.style.backgroundColor = 'rgb(122, 244, 66)';}, 400);
+            setTimeout(function() {bg3.style.backgroundColor = 'rgb(66, 244, 235)';}, 500);
+            setTimeout(function() {bg3.style.backgroundColor = 'rgb(244, 179, 66)';}, 600);
+            setTimeout(function() {bg3.style.backgroundColor = 'rgb(244, 238, 66)';}, 700);
+            setTimeout(function() {bg3.style.backgroundColor = 'rgb(197, 244, 66)';}, 800);
+            setTimeout(function() {bg3.style.backgroundColor = 'rgb(122, 244, 66)';}, 900);
+            setTimeout(function() {bg3.style.backgroundColor = 'rgb(66, 244, 235)';}, 1000);
+            setTimeout(function() {bg3.style.backgroundColor = '#d7f3f7';}, 1100);
+        }
+    }
+    setTimeout(function() {stopGame();}, 1200);
+}
+
+//these functions will produce game sounds
+function squareSound() {
+    var sound = document.getElementById("placeAvatar");
+    sound.play();
+    setTimeout(function() {sound.pause();}, 400); //add delay to keep sound short
+    setTimeout(function() {sound.currentTime = 0;}, 500);
+}
+function tieSound() {
+    var sound = document.getElementById("winGame");
+    setTimeout(function() {sound.play();}, 500);
+    setTimeout(function() {sound.pause();}, 2700);
+    setTimeout(function() {sound.currentTime = 0;}, 2800);
+}
+function diceRoll() {
+    var sound = document.getElementById("diceRoll");
+    sound.play();
+}
+
+//call this function to make entire background color
+//flash for a few seconds for a win animation
+function blink() {
+    var body = document.getElementById('body');
+    setTimeout(function() {body.style.backgroundColor = '#94f7ed';}, 100);
+    setTimeout(function() {body.style.backgroundColor = '#94cef7';}, 200);
+    setTimeout(function() {body.style.backgroundColor = '#94a6f7';}, 300);
+    setTimeout(function() {body.style.backgroundColor = '#b094f7';}, 400);
+    setTimeout(function() {body.style.backgroundColor = '#cc94f7';}, 500);
+    setTimeout(function() {body.style.backgroundColor = '#e894f7';}, 600);
+    setTimeout(function() {body.style.backgroundColor = '#f794d9';}, 700);
+    setTimeout(function() {body.style.backgroundColor = '#f73881';}, 800);
+    setTimeout(function() {body.style.backgroundColor = '#c6034e';}, 900);
+    setTimeout(function() {body.style.backgroundColor = '#e00202';}, 1000);
+    setTimeout(function() {body.style.backgroundColor = '#ffffff';}, 1100);
+}
+
+
+//------------------------------------------------------------------------------------------------
+//These blobk of functions are for each click event of their corresponding square element
+//------------------------------------------------------------------------------------------------
+function square1Animate() {
+    var activePlayer = document.getElementById('showPlayer').innerHTML;
+    if (activePlayer != "Game Stopped") {//if game has not yet started prevent avatar placement
+        var square = "O"; //identify the square selected
+        //check if the proposed square is valid
+        var verdict = recordMoves(square);
+        if (verdict == undefined) {//if verdict is empty than the square is unoccupied
+            var paintAvatar = determineAvatar(); //get the correct avatar to paint for the active player
+            var selected = document.getElementsByClassName(paintAvatar)[0];//paint avatar
+            if (paintAvatar == "O") {//change these all to ternary statements instead
+                AnimationEffect(selected);//call function to animate O
+            } else if (paintAvatar == "X") {
+                animateX(selected); //call function to animate X
+            }
+            //build new array adding the newly selected square and the assigned avatar
+            var currentMove = ","+square+paintAvatar;
+            recordMove(currentMove);
+            checkForWinCon(); //call function to check if current move completes a winning condition
+            avatarPlaced(square,paintAvatar); //end current turn and pass the turn to the other player
+            squareSound(); //play a game sound when the avatar is placed
+        }
+    }
+}
+
+function square2Animate() {
+    var activePlayer = document.getElementById('showPlayer').innerHTML;
+    if (activePlayer != "Game Stopped") {//if game has not yet started prevent avatar placement
+        var square = "O"; //identify the square selected
+        //check if the proposed square is valid
+        var verdict = recordMoves(square);
+        if (verdict == undefined) {//if verdict is empty than the square is unoccupied
+            var paintAvatar = determineAvatar(); //get the correct avatar to paint for the active player
+            var selected = document.getElementsByClassName(paintAvatar)[0];//paint avatar
+            if (paintAvatar == "O") {//change these all to ternary statements instead
+                AnimationEffect(selected);//call function to animate O
+            } else if (paintAvatar == "X") {
+                animateX(selected); //call function to animate X
+            }
+            //build new array adding the newly selected square and the assigned avatar
+            var currentMove = ","+square+paintAvatar;
+            recordMove(currentMove);
+            checkForWinCon(); //call function to check if current move completes a winning condition
+            avatarPlaced(square,paintAvatar); //end current turn and pass the turn to the other player
+            squareSound(); //play a game sound when the avatar is placed
+        }
+    }
+}
+
+function square3Animate() {
+    var activePlayer = document.getElementById('showPlayer').innerHTML;
+    if (activePlayer != "Game Stopped") {//if game has not yet started prevent avatar placement
+        var square = "O"; //identify the square selected
+        //check if the proposed square is valid
+        var verdict = recordMoves(square);
+        if (verdict == undefined) {//if verdict is empty than the square is unoccupied
+            var paintAvatar = determineAvatar(); //get the correct avatar to paint for the active player
+            var selected = document.getElementsByClassName(paintAvatar)[0];//paint avatar
+            if (paintAvatar == "O") {//change these all to ternary statements instead
+                AnimationEffect(selected);//call function to animate O
+            } else if (paintAvatar == "X") {
+                animateX(selected); //call function to animate X
+            }
+            //build new array adding the newly selected square and the assigned avatar
+            var currentMove = ","+square+paintAvatar;
+            recordMove(currentMove);
+            checkForWinCon(); //call function to check if current move completes a winning condition
+            avatarPlaced(square,paintAvatar); //end current turn and pass the turn to the other player
+            squareSound(); //play a game sound when the avatar is placed
+        }
+    }
+}
+
+function square4Animate() {
+    var activePlayer = document.getElementById('showPlayer').innerHTML;
+    if (activePlayer != "Game Stopped") {//if game has not yet started prevent avatar placement
+        var square = "O"; //identify the square selected
+        //check if the proposed square is valid
+        var verdict = recordMoves(square);
+        if (verdict == undefined) {//if verdict is empty than the square is unoccupied
+            var paintAvatar = determineAvatar(); //get the correct avatar to paint for the active player
+            var selected = document.getElementsByClassName(paintAvatar)[0];//paint avatar
+            if (paintAvatar == "O") {//change these all to ternary statements instead
+                AnimationEffect(selected);//call function to animate O
+            } else if (paintAvatar == "X") {
+                animateX(selected); //call function to animate X
+            }
+            //build new array adding the newly selected square and the assigned avatar
+            var currentMove = ","+square+paintAvatar;
+            recordMove(currentMove);
+            checkForWinCon(); //call function to check if current move completes a winning condition
+            avatarPlaced(square,paintAvatar); //end current turn and pass the turn to the other player
+            squareSound(); //play a game sound when the avatar is placed
+        }
+    }
+}
+
+function square5Animate() {
+    var activePlayer = document.getElementById('showPlayer').innerHTML;
+    if (activePlayer != "Game Stopped") {//if game has not yet started prevent avatar placement
+        var square = "O"; //identify the square selected
+        //check if the proposed square is valid
+        var verdict = recordMoves(square);
+        if (verdict == undefined) {//if verdict is empty than the square is unoccupied
+            var paintAvatar = determineAvatar(); //get the correct avatar to paint for the active player
+            var selected = document.getElementsByClassName(paintAvatar)[0];//paint avatar
+            if (paintAvatar == "O") {//change these all to ternary statements instead
+                AnimationEffect(selected);//call function to animate O
+            } else if (paintAvatar == "X") {
+                animateX(selected); //call function to animate X
+            }
+            //build new array adding the newly selected square and the assigned avatar
+            var currentMove = ","+square+paintAvatar;
+            recordMove(currentMove);
+            checkForWinCon(); //call function to check if current move completes a winning condition
+            avatarPlaced(square,paintAvatar); //end current turn and pass the turn to the other player
+            squareSound(); //play a game sound when the avatar is placed
+        }
+    }
+}
+
+function square6Animate() {
+    var activePlayer = document.getElementById('showPlayer').innerHTML;
+    if (activePlayer != "Game Stopped") {//if game has not yet started prevent avatar placement
+        var square = "O"; //identify the square selected
+        //check if the proposed square is valid
+        var verdict = recordMoves(square);
+        if (verdict == undefined) {//if verdict is empty than the square is unoccupied
+            var paintAvatar = determineAvatar(); //get the correct avatar to paint for the active player
+            var selected = document.getElementsByClassName(paintAvatar)[0];//paint avatar
+            if (paintAvatar == "O") {//change these all to ternary statements instead
+                AnimationEffect(selected);//call function to animate O
+            } else if (paintAvatar == "X") {
+                animateX(selected); //call function to animate X
+            }
+            //build new array adding the newly selected square and the assigned avatar
+            var currentMove = ","+square+paintAvatar;
+            recordMove(currentMove);
+            checkForWinCon(); //call function to check if current move completes a winning condition
+            avatarPlaced(square,paintAvatar); //end current turn and pass the turn to the other player
+            squareSound(); //play a game sound when the avatar is placed
+        }
+    }
+}
+
+function square7Animate() {
+    var activePlayer = document.getElementById('showPlayer').innerHTML;
+    if (activePlayer != "Game Stopped") {//if game has not yet started prevent avatar placement
+        var square = "O"; //identify the square selected
+        //check if the proposed square is valid
+        var verdict = recordMoves(square);
+        if (verdict == undefined) {//if verdict is empty than the square is unoccupied
+            var paintAvatar = determineAvatar(); //get the correct avatar to paint for the active player
+            var selected = document.getElementsByClassName(paintAvatar)[0];//paint avatar
+            if (paintAvatar == "O") {//change these all to ternary statements instead
+                AnimationEffect(selected);//call function to animate O
+            } else if (paintAvatar == "X") {
+                animateX(selected); //call function to animate X
+            }
+            //build new array adding the newly selected square and the assigned avatar
+            var currentMove = ","+square+paintAvatar;
+            recordMove(currentMove);
+            checkForWinCon(); //call function to check if current move completes a winning condition
+            avatarPlaced(square,paintAvatar); //end current turn and pass the turn to the other player
+            squareSound(); //play a game sound when the avatar is placed
+        }
+    }
+}
+
+function square8Animate() {
+    var activePlayer = document.getElementById('showPlayer').innerHTML;
+    if (activePlayer != "Game Stopped") {//if game has not yet started prevent avatar placement
+        var square = "O"; //identify the square selected
+        //check if the proposed square is valid
+        var verdict = recordMoves(square);
+        if (verdict == undefined) {//if verdict is empty than the square is unoccupied
+            var paintAvatar = determineAvatar(); //get the correct avatar to paint for the active player
+            var selected = document.getElementsByClassName(paintAvatar)[0];//paint avatar
+            if (paintAvatar == "O") {//change these all to ternary statements instead
+                AnimationEffect(selected);//call function to animate O
+            } else if (paintAvatar == "X") {
+                animateX(selected); //call function to animate X
+            }
+            //build new array adding the newly selected square and the assigned avatar
+            var currentMove = ","+square+paintAvatar;
+            recordMove(currentMove);
+            checkForWinCon(); //call function to check if current move completes a winning condition
+            avatarPlaced(square,paintAvatar); //end current turn and pass the turn to the other player
+            squareSound(); //play a game sound when the avatar is placed
+        }
+    }
+}
+
+function square9Animate() {
+    var activePlayer = document.getElementById('showPlayer').innerHTML;
+    if (activePlayer != "Game Stopped") {//if game has not yet started prevent avatar placement
+        var square = "O"; //identify the square selected
+        //check if the proposed square is valid
+        var verdict = recordMoves(square);
+        if (verdict == undefined) {//if verdict is empty than the square is unoccupied
+            var paintAvatar = determineAvatar(); //get the correct avatar to paint for the active player
+            var selected = document.getElementsByClassName(paintAvatar)[0];//paint avatar
+            if (paintAvatar == "O") {//change these all to ternary statements instead
+                AnimationEffect(selected);//call function to animate O
+            } else if (paintAvatar == "X") {
+                animateX(selected); //call function to animate X
+            }
+            //build new array adding the newly selected square and the assigned avatar
+            var currentMove = ","+square+paintAvatar;
+            recordMove(currentMove);
+            checkForWinCon(); //call function to check if current move completes a winning condition
+            avatarPlaced(square,paintAvatar); //end current turn and pass the turn to the other player
+            squareSound(); //play a game sound when the avatar is placed
+        }
     }
 }
